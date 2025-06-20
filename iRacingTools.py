@@ -3,6 +3,7 @@ import pathlib
 import re
 import json
 import configparser
+from iRacingToolsResources import _internal_utils
 from PySide6 import QtWidgets
 import substance_painter as sp
 
@@ -37,9 +38,9 @@ cfg                 = configparser.ConfigParser()
 
 user_dir            = pathlib.Path.home()
 onedrive_path       = os.environ.get("OneDrive")
-iracing_dir         = os.path.join(onedrive_path, r"Documents\iRacing")
+iracing_dir         = os.path.join(onedrive_path, "Documents/iRacing")
 if not os.path.exists(iracing_dir):
-    iracing_dir     = os.path.join(user_dir, r"Documents\iRacing")
+    iracing_dir     = os.path.join(user_dir, "Documents/iRacing")
 paints_dir          = os.path.join(iracing_dir, "paint")
 script_dir          = os.path.dirname(os.path.abspath(__file__))
 resources_dir       = os.path.join(script_dir, "iRacingToolsResources")
@@ -69,20 +70,8 @@ icon_paste_proj     = QIcon(os.path.join(resources_dir, "icons\\icon_paste_proj.
 icon_iracing_text   = QIcon(os.path.join(resources_dir, "icons\\iRacing-Inline-Color-White.svg"))
 icon_test           = QIcon(os.path.join(resources_dir, "icons\\iRacing-Icon-Color-White.svg")) #DELETE THIS AT SOME POINT
 
-def read_cfg(section, option):
-    value = None
-    cfg.read(cfg_file)
-    if cfg.has_section(section):
-        if cfg.has_option(section, option):
-            value = cfg.get(section, option)
-    return value
-
-def write_cfg(section, option, value):
-    if not cfg.has_section(section):
-        cfg.add_section(section)
-    cfg.set(section, option, value)
-    with open(cfg_file, 'w') as configfile:
-        cfg.write(configfile)
+_internal_utils.cfg = cfg
+_internal_utils.cfg_file = cfg_file
 
 def get_plugin_dir() -> str:
     output      = None
@@ -250,7 +239,7 @@ def find_customer_id():
         export_id = metadata.get("export_id")
         if export_id:
             return export_id
-        id = read_cfg("Settings", "customerid")
+        id = _internal_utils.read_cfg("Settings", "customerid")
         if id.isdecimal():
             export_id = id
             return export_id
@@ -964,7 +953,7 @@ class ExportSettingsWidget(QFrame):
         text = self.id_sel.text()
         if text.isdecimal():
             metadata.set("export_id", text)
-            write_cfg("Settings", "customerid", text)
+            _internal_utils.write_cfg("Settings", "customerid", text)
         else:
             self.id_sel.clear()
 
