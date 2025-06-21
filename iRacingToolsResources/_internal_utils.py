@@ -21,6 +21,12 @@ except ImportError:
 cfg = None
 cfg_file = None
 
+def download_templates(templates: list[str]):
+    templates_dir = read_cfg("Settings", "templates_dir")
+    
+    if templates_dir and templates:
+        pass
+
 def get_github_data() -> dict:
     repo_owner = "deltawitski"
     repo_name = "iRacingTools"
@@ -42,11 +48,11 @@ def get_github_data() -> dict:
         
     return file_paths
 
-def download_plugin() -> bool:
+def download_plugin(Path=None) -> bool:
     downloads = {}
     file_paths = get_github_data()
     if file_paths:
-        plugin_dir = find_substance_plugin_dir()
+        plugin_dir = find_substance_plugin_dir() if Path is None else Path
         
         if not plugin_dir: return False
         
@@ -71,8 +77,7 @@ def download_plugin() -> bool:
 
 def check_version() -> tuple[bool, bool, str, str]:
     """
-    Compares local version of the plugin with the current version on Github. Will return false if the versions
-    dont match or if files are missing.
+    Compares local version of the plugin with the current version on Github.
 
     Returns
     -------
