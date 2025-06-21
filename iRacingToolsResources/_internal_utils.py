@@ -1,6 +1,21 @@
 import os
 import pathlib
-import requests
+
+try:
+    import requests
+    can_update = True
+    
+except ImportError:
+    import subprocess
+    import sys
+    
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "requests"])
+        import requests
+        can_update = True
+        
+    except subprocess.CalledProcessError:
+        can_update = False
 
 cfg = None
 cfg_file = None
