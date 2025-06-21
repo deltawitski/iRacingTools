@@ -43,6 +43,6 @@ window.show()
 
 #print(_internal_utils.is_plugin_installed())
 #print(_internal_utils.check_version())
-print(_internal_utils.download_plugin())
+#print(_internal_utils.download_plugin())
 
 app.exec()

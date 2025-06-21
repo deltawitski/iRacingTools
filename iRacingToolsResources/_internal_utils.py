@@ -10,7 +10,8 @@ except ImportError:
     import sys
     
     try:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "requests"])
+        python_exe = os.path.join(os.path.dirname(sys.executable), "resources/pythonsdk/python.exe")
+        subprocess.check_call([python_exe, "-m", "pip", "install", "requests"])
         import requests
         can_update = True
         
