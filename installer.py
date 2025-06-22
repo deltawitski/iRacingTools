@@ -9,7 +9,7 @@ from PySide6.QtGui import QPalette, QColor, QIcon, QShowEvent, QFont
 from PySide6.QtWidgets import ( 
     QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, 
     QWidget, QStackedWidget, QPushButton, QProgressBar, 
-    QLabel, QLineEdit, QFileDialog, QToolButton
+    QLabel, QLineEdit, QFileDialog, QToolButton, QMessageBox
 )
 
 app = QApplication(sys.argv)
@@ -30,15 +30,52 @@ base_dir = os.path.dirname(__file__)
 logo_path = os.path.join(base_dir, "iRacingToolsResources/icons/logo.ico")
 icon_iracing_color = QIcon(logo_path)
 
-def Download(parent, Path=None):
-    _internal_utils.download_plugin(Path)
-    show_event = QShowEvent()
-    QApplication.sendEvent(parent, show_event)
+def GetCustomerID() -> str:
+    id = _internal_utils.read_cfg("Settings", "customerid")
+    if id and id.isdecimal():
+        return id
+    else:
+        return None
 
-class DirSelect(QWidget):
-    def __init__(self, Parent, Width):
+def GetPaintsDir() -> str:
+    dir = _internal_utils.read_cfg("Settings", "paints_dir")
+    if dir and os.path.exists(dir):
+        return dir
+    else:
+        return None
+
+def GetTemplateDir() -> str:
+    dir = _internal_utils.read_cfg("Settings", "templates_dir")
+    if dir and os.path.exists(dir):
+        return dir
+    else:
+        return None
+
+def Download(parent, Path=None):
+    if _internal_utils.download_plugin(Path) == True:
+        parent.Downloaded()
+
+class TextEntry(QLineEdit):
+    def __init__(self, Parent, Width, FontSize):
         super().__init__()
         self.parent = Parent
+    
+        self.setStyleSheet(f"""
+        QLineEdit {{
+            background-color: {bg_shadow.name()};
+            border: 3px solid {bg_light.name()};
+        }}""")
+        font = self.font()
+        font.setPointSize(FontSize)
+        self.setFont(font)
+        self.setFixedWidth(Width)
+
+class DirSelect(QWidget):
+    dir_selected_signal = Signal(str)
+    def __init__(self, Parent, Width, Caption="Select Folder"):
+        super().__init__()
+        self.parent = Parent
+        self.caption = Caption
         
         self.path_layout = QHBoxLayout()
         self.setLayout(self.path_layout)
@@ -55,8 +92,14 @@ class DirSelect(QWidget):
         self.line_edit.setFixedWidth(Width)
         self.button = QToolButton()
         self.button.setText("Change")
+        self.button.clicked.connect(self.SelectDir)
         self.path_layout.addWidget(self.line_edit)
         self.path_layout.addWidget(self.button)
+        
+    def SelectDir(self):
+        dir = QFileDialog.getExistingDirectory(self, self.caption, ".")
+        if dir:
+            self.dir_selected_signal.emit(os.path.normpath(dir))
 
 class ProgressBar(QProgressBar):
     def __init__(self):
@@ -87,6 +130,7 @@ class InstallWindow(QWidget):
         self.parent: MainWindow = parent
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
+        self.plugin_dir = None
     
         self.title = QLabel()
         self.title.setText("Install Plugin")
@@ -104,6 +148,7 @@ class InstallWindow(QWidget):
         self.label2.setFont(label2_font)
         
         self.path_sel = DirSelect(self, 500)
+        self.path_sel.dir_selected_signal.connect(self.dirSelected)
         
         self.button = QPushButton("Install")
         self.button.setFixedWidth(125)
@@ -123,21 +168,31 @@ class InstallWindow(QWidget):
         self.layout.addWidget(self.button, alignment=Qt.AlignmentFlag.AlignHCenter)
         self.layout.addStretch()
         
+    def dirSelected(self, Dir):
+        self.plugin_dir = Dir
+        if self.plugin_dir:
+            self.path_sel.line_edit.setText(self.plugin_dir)
+            self.button.setEnabled(True)
+    
     def showEvent(self, event: QShowEvent):
         self.progress_bar.setLooping(False)
         self.parent.finish.setEnabled(False)
+        self.parent.back.setEnabled(False)
         self.parent.next.setEnabled(False)
         self.parent.cancel.setEnabled(True)
         self.button.setEnabled(False)
         
-        plugin_dir = _internal_utils.find_substance_plugin_dir()
-        if plugin_dir:
-            self.path_sel.line_edit.setText(plugin_dir)
+        if self.plugin_dir is None:
+            self.plugin_dir = _internal_utils.find_substance_plugin_dir()
+        if self.plugin_dir:
+            self.path_sel.line_edit.setText(self.plugin_dir)
             self.button.setEnabled(True)
 
-        self.installed_signal.emit("Installed")
         super().showEvent(event)
         
+    def Downloaded(self):
+        self.installed_signal.emit("Installed")
+    
     def Install(self):
         plugin_dir = self.path_sel.line_edit.text()
         self.parent.cancel.setEnabled(True)
@@ -174,7 +229,6 @@ class UpdateWindow(QWidget):
         self.button.clicked.connect(self.Update)
         
         self.progress_bar = ProgressBar()
-        #self.progress_bar.setLooping(True)
         
         self.layout.addStretch()
         self.layout.addWidget(self.title, alignment=Qt.AlignmentFlag.AlignHCenter)
@@ -185,15 +239,16 @@ class UpdateWindow(QWidget):
         self.layout.addWidget(self.button, alignment=Qt.AlignmentFlag.AlignHCenter)
         self.layout.addStretch()
         
-    def showEvent(self, event: QShowEvent):
-        self.progress_bar.setLooping(False)
-        self.parent.finish.setEnabled(True)
-        self.parent.next.setEnabled(True)
-        self.parent.cancel.setEnabled(False)
-        self.button.setEnabled(True)
-        
+    def Checks(self):
         missing, matches, local, new = _internal_utils.check_version()
         
+        self.progress_bar.setLooping(False)
+        self.parent.finish.setEnabled(False)
+        self.parent.back.setEnabled(False)
+        self.parent.next.setEnabled(not missing)
+        self.parent.cancel.setEnabled(True)
+        self.button.setEnabled(True)
+
         if missing is True:
             label1_text = f"<font color=#dd2e22>Missing File(s)</font>"
             label2_text = "One or more files are missing from plugin installation."
@@ -212,9 +267,15 @@ class UpdateWindow(QWidget):
         self.label1.setText(label1_text)
         self.label2.setText(label2_text)
         self.button.setText(button_text)
+    
+    def showEvent(self, event: QShowEvent):
+        self.Checks()
 
         super().showEvent(event)
         
+    def Downloaded(self):
+        self.Checks()
+    
     def Update(self):
         self.parent.cancel.setEnabled(True)
         self.parent.next.setEnabled(False)
@@ -228,8 +289,111 @@ class SettingsWindow(QWidget):
     def __init__(self, parent=None):
         super().__init__()
         self.parent: MainWindow = parent
+        self.layout = QVBoxLayout()
+        self.setLayout(self.layout)
+    
+        self.title = QLabel()
+        self.title.setText("Plugin Settings")
+        title_font = QFont("Verdana", 24, QFont.Weight.Bold)
+        self.title.setFont(title_font)
+        
+        self.label1 = QLabel()
+        self.label1.setText("iRacing ID")
+        label1_font = QFont("Verdana", 16)
+        self.label1.setFont(label1_font)
+        self.id_sel = TextEntry(self, 125, 16)
+        self.id_sel.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.id_sel.editingFinished.connect(self.id_set)
+        
+        self.blabel = QLabel()
+        self.blabel.setText("Set location to create Paints and Templates Directories")
+        blabel_font = QFont("Verdana", 12)
+        self.blabel.setFont(blabel_font)
+        self.button = QPushButton()
+        self.button.setText("Select")
+        self.button.clicked.connect(self.SetDirs)
+        
+        self.label2 = QLabel()
+        self.label2.setText("Paints Directory")
+        label2_font = QFont("Verdana", 14)
+        self.label2.setFont(label2_font)
+        self.paints_entry = DirSelect(self, 500)
+        self.paints_entry.dir_selected_signal.connect(self.paints_dir_set)
+        
+        self.label3 = QLabel()
+        self.label3.setText("Templates Directory")
+        label3_font = QFont("Verdana", 14)
+        self.label3.setFont(label3_font)
+        self.templates_entry = DirSelect(self, 500)
+        self.templates_entry.dir_selected_signal.connect(self.templates_dir_set)
+        
+        self.layout.addStretch()
+        self.layout.addWidget(self.title, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addStretch()
+        self.layout.addWidget(self.label1, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addWidget(self.id_sel, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addStretch()
+        self.layout.addWidget(self.blabel, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addWidget(self.button, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addStretch()
+        self.layout.addWidget(self.label2, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addWidget(self.paints_entry, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addStretch()
+        self.layout.addWidget(self.label3, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addWidget(self.templates_entry, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addStretch()
+    
+    def id_set(self):
+        id = self.id_sel.text()
+        if id and id.isdecimal():
+            _internal_utils.write_cfg("Settings", "customerid", id)
+            self.Checks()
+    
+    def paints_dir_set(self, dir: str):
+        _internal_utils.write_cfg("Settings", "paints_dir", dir)
+        self.Checks()
+    
+    def templates_dir_set(self, dir: str):
+        _internal_utils.write_cfg("Settings", "templates_dir", dir)
+        self.Checks()
+    
+    def SetDirs(self):
+        dir = QFileDialog.getExistingDirectory(self, "Select Folder to Create Paints and Templates Folder in", ".")
+        if dir:
+            paints = os.path.normpath(os.path.join(dir, "Paints"))
+            templates = os.path.normpath(os.path.join(dir, "Templates"))
+            
+            reply = QMessageBox.question(
+                self, "Create Paints and Templates Folders",
+                f"{paints}\n{templates}",
+                QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+            )
+            
+            if reply == QMessageBox.StandardButton.Yes:
+                os.makedirs(paints, exist_ok=True)
+                os.makedirs(templates, exist_ok=True)
+                _internal_utils.write_cfg("Settings", "paints_dir", paints)
+                _internal_utils.write_cfg("Settings", "templates_dir", templates)
+                self.Checks()
+    
+    def Checks(self):
+        cust_id = GetCustomerID()
+        self.id_sel.setText(cust_id)
+        
+        paints_dir = GetPaintsDir()
+        self.paints_entry.line_edit.setText(paints_dir)
+        
+        template_dir = GetTemplateDir()
+        self.templates_entry.line_edit.setText(template_dir)
+        enabled = True if template_dir != None else False
+        self.parent.next.setEnabled(enabled)
         
     def showEvent(self, event: QShowEvent):
+        self.parent.cancel.setEnabled(True)
+        self.parent.back.setEnabled(True)
+        self.parent.finish.setEnabled(False)
+        
+        self.Checks()
 
         super().showEvent(event)
         
@@ -237,8 +401,23 @@ class TemplatesWindow(QWidget):
     def __init__(self, parent=None):
         super().__init__()
         self.parent: MainWindow = parent
+        self.layout = QVBoxLayout()
+        self.setLayout(self.layout)
+    
+        self.title = QLabel()
+        self.title.setText("Download Templates")
+        title_font = QFont("Verdana", 24, QFont.Weight.Bold)
+        self.title.setFont(title_font)
         
     def showEvent(self, event: QShowEvent):
+        self.parent.cancel.setEnabled(True)
+        self.parent.back.setEnabled(True)
+        self.parent.next.setEnabled(False)
+        self.parent.finish.setEnabled(True)
+        
+        self.layout.addStretch()
+        self.layout.addWidget(self.title, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addStretch()
 
         super().showEvent(event)
 
@@ -263,8 +442,12 @@ class MainWindow(QMainWindow):
         self.install_window = InstallWindow(self)
         self.install_window.installed_signal.connect(self.InstallCheck)
         self.update_window = UpdateWindow(self)
+        self.settings_window = SettingsWindow(self)
+        self.templates_window = TemplatesWindow(self)
         self.stack.addWidget(self.install_window)
         self.stack.addWidget(self.update_window)
+        self.stack.addWidget(self.settings_window)
+        self.stack.addWidget(self.templates_window)
         
         self.lower_widget = QWidget()
         self.lower_widget.setFixedHeight(50)
@@ -278,10 +461,12 @@ class MainWindow(QMainWindow):
         self.back = QPushButton("Back")
         self.back.setFixedWidth(100)
         self.back.setEnabled(False)
+        self.back.clicked.connect(lambda: self.NextBack(False))
         
         self.next = QPushButton("Next")
         self.next.setFixedWidth(100)
         self.next.setEnabled(False)
+        self.next.clicked.connect(lambda: self.NextBack(True))
         
         self.finish = QPushButton("Finish")
         self.finish.setFixedWidth(100)
@@ -300,6 +485,16 @@ class MainWindow(QMainWindow):
         self.main_widget.setLayout(self.layout)
         
         self.setCentralWidget(self.main_widget)
+    
+    def NextBack(self, Next: bool):
+        index = self.stack.currentIndex()
+        
+        if Next is True:
+            index = index + 1
+            self.stack.setCurrentIndex(index)
+        else:
+            index = index - 1
+            self.stack.setCurrentIndex(index)
     
     def InstallCheck(self):
         if _internal_utils.is_plugin_installed() is True:
