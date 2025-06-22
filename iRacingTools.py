@@ -2,7 +2,6 @@ import os
 import pathlib
 import re
 import json
-import configparser
 from iRacingToolsResources import _internal_utils
 from PySide6 import QtWidgets
 import substance_painter as sp
@@ -34,7 +33,6 @@ updating_widgets    = []
 project_ready       = False
 metadata            = sp.project.Metadata("iRacingTools")
 main_window         = sp.ui.get_main_window()
-cfg                 = configparser.ConfigParser()
 
 user_dir            = pathlib.Path.home()
 onedrive_path       = os.environ.get("OneDrive")
@@ -44,17 +42,11 @@ if not os.path.exists(iracing_dir):
 paints_dir          = os.path.join(iracing_dir, "paint")
 script_dir          = os.path.dirname(os.path.abspath(__file__))
 resources_dir       = os.path.join(script_dir, "iRacingToolsResources")
-cfg_file            = os.path.join(resources_dir, "cfg")
-templates_file      = os.path.join(resources_dir, "templates")
-paint_info_file     = os.path.join(resources_dir, "paint_info")
-with open(templates_file) as file:
-    templates_dict = json.load(file)
-with open(paint_info_file) as file:
-    paint_info_dict = json.load(file)
-paint_info_list     = list(paint_info_dict.values())
-paint_info_list     = sorted(paint_info_list, key=lambda x: x[0], reverse=False)
-car_names           = [i[0] for i in paint_info_list]
-paint_folders       = [i[1] for i in paint_info_list]
+data_file     = os.path.join(resources_dir, "data")
+with open(data_file) as file:
+    data_dict = json.load(file)
+data_key_list     = list(data_dict.keys())
+data_key_list     = sorted(data_dict, key=lambda key: data_dict[key]["Name"], reverse=False)
 icon_iracing_white  = QIcon(os.path.join(resources_dir, "icons\\iRacing-Icon-BW-White.svg"))
 icon_iracing_color  = QIcon(os.path.join(resources_dir, "icons\\iRacing-Icon-Color-White.svg"))
 icon_folder         = QIcon(os.path.join(resources_dir, "icons\\icon_folder.svg"))
@@ -70,9 +62,6 @@ icon_paste_proj     = QIcon(os.path.join(resources_dir, "icons\\icon_paste_proj.
 icon_iracing_text   = QIcon(os.path.join(resources_dir, "icons\\iRacing-Inline-Color-White.svg"))
 icon_test           = QIcon(os.path.join(resources_dir, "icons\\iRacing-Icon-Color-White.svg")) #DELETE THIS AT SOME POINT
 
-_internal_utils.cfg = cfg
-_internal_utils.cfg_file = cfg_file
-
 def get_plugin_dir() -> str:
     output      = None
     user_dir    = pathlib.Path.home()
@@ -81,7 +70,7 @@ def get_plugin_dir() -> str:
         output  = plugin_dir
     return output
 
-def make_export_config(path: str, id: str, driver: str, custom_number: bool, team_paint: bool, decal: bool, index: int) -> dict:
+def make_export_config(path: str, id: str, driver: str, custom_number: bool, team_paint: bool, decal: bool, key: str) -> dict:
     car = "car"
     if driver is not None:
         car = driver
@@ -94,11 +83,10 @@ def make_export_config(path: str, id: str, driver: str, custom_number: bool, tea
     
     texture_set = sp.textureset.get_active_stack()
     
-    car_info_list = paint_info_list[index]
-    try:
-        suffixes = car_info_list[2]
-        suffix = suffixes[str(texture_set)]
-    except IndexError:
+    body_type = data_dict[key]["BodyType"]
+    if body_type:
+        suffix = body_type[str(texture_set)]
+    else:
         suffix = ""
     
     def make_base_map() -> dict:
@@ -184,13 +172,13 @@ def find_car_type():
     return car_type
 
 def paint_folder(key):
-    folder = paint_info_dict[key][1]
+    folder = data_dict[key]["FilePath"]
     if folder:
         return folder
     return None
 
 def car_name(key):
-    name = paint_info_dict[key][0]
+    name = data_dict[key]["FilePath"]
     if name:
         return name
     return None
@@ -240,7 +228,7 @@ def find_customer_id():
         if export_id:
             return export_id
         id = _internal_utils.read_cfg("Settings", "customerid")
-        if id.isdecimal():
+        if id and id.isdecimal():
             export_id = id
             return export_id
     newest_file = None
@@ -714,6 +702,7 @@ class ExportWidget(MainButton):
             path    = self.settings_widget.path.text()
             id      = self.settings_widget.id_sel.text()
             index   = self.settings_widget.car_sel.currentIndex()
+            key     = data_key_list[index]
             if path and id:
                 name = self.settings_widget.car_sel.currentText()
                 if name == "Driver Helmet":
@@ -723,7 +712,7 @@ class ExportWidget(MainButton):
                 custom_number = self.settings_widget.custom_numb_sel.isChecked()
                 team_paint    = self.settings_widget.team_sel.isChecked()
                 decal         = self.settings_widget.decal_sel.isChecked()
-                export_config = make_export_config(path, id, driver, custom_number, team_paint, decal, index)
+                export_config = make_export_config(path, id, driver, custom_number, team_paint, decal, key)
                 export_list   = list(sp.export.list_project_textures(export_config).values())
                 export_result = sp.export.export_project_textures(export_config)
                 exported      = list(export_result.textures.values())
@@ -837,7 +826,7 @@ class ExportSettingsWidget(QFrame):
         self.label.setStyleSheet("border: 0px solid #1a1a1a;")
         self.car_sel.setPlaceholderText("Select Car")
         self.car_sel.setDisabled(False)
-        self.car_sel.addItems(car_names)
+        self.car_sel.addItems([data_dict[key]["Name"] for key in data_key_list])
         self.car_sel.setStyleSheet("border: 1px solid darkRed;")
         self.car_sel.setToolTip("Select iRacing Car")
         self.car_type_sel.setPlaceholderText("Select Car Type")
@@ -881,9 +870,7 @@ class ExportSettingsWidget(QFrame):
                 self.id_sel.setText(cust_id)
             current_car = find_car_info_key()
             if current_car:
-                current_car_name = car_name(current_car)
-                new_index = car_names.index(current_car_name)
-                self.car_sel.setCurrentIndex(new_index)
+                self.car_sel.setCurrentText(data_dict[current_car]["Name"])
                 self.car_selected()
                 if self.car_type_sel.isEnabled():
                     current_car_type = find_car_type()
@@ -1009,8 +996,8 @@ class ExportSettingsWidget(QFrame):
         
         car     = None
         index   = self.car_sel.currentIndex()
-        name    = car_names[index]
-        folder  = paint_folders[index]
+        name    = data_dict[data_key_list[index]]["Name"]
+        folder  = data_dict[data_key_list[index]]["FilePath"]
         if isinstance(folder, str):
             path = paint_path(folder)
             if os.path.exists(path):
@@ -1021,8 +1008,8 @@ class ExportSettingsWidget(QFrame):
             self.set_path(path=None)
             self.update_car_type_box(car_type=folder)
             self.car_sel.setStyleSheet("")
-        for key, value in paint_info_dict.items():
-            value = value[0]
+        for key, value in data_dict.items():
+            value = data_dict[key]["Name"]
             if value == name:
                 car = key
                 break
@@ -1046,7 +1033,7 @@ class ExportSettingsWidget(QFrame):
         global metadata
         folder      = None
         car_index   = self.car_sel.currentIndex()
-        car_info    = paint_folders[car_index]
+        car_info    = data_dict[data_key_list[car_index]]["FilePath"]
         key         = self.car_type_sel.currentText()
         if key:
             if isinstance(car_info, dict):
@@ -1077,16 +1064,18 @@ class ExportSettingsWidget(QFrame):
         found_car_type      = None
         found_car_types     = None
         if folder:
-            for index, item in enumerate(paint_folders):
+            for index, item in enumerate([data_dict[key]["FilePath"] for key in data_key_list]):
                 if isinstance(item, str):
                     if item == folder:
-                        found_car_name  = car_names[index]
+                        found_car_name  = data_dict[data_key_list[index]]["Name"]
+                        break
                 elif isinstance(item, dict):
                     for key, value in item.items():
                         if value == folder:
-                            found_car_name = car_names[index]
-                            found_car_types = paint_folders[index]
+                            found_car_name = data_dict[data_key_list[index]]["Name"]
+                            found_car_types = item
                             found_car_type = key
+                            break
 
         if found_car_name:
             new_car_index = self.car_sel.findText(found_car_name)

@@ -1,0 +1,970 @@
+{
+    "Acura ARX06 GTP": {
+        "Name": "Acura ARX-06 GTP",
+        "FilePath": "acuraarx06gtp",
+        "FileID": "1Iq5JkZ_8EdfBkaJey1QQgFIrgx2i6Foi",
+        "BodyType": {}
+    },
+    "Acura NSX EVO22 GT3": {
+        "Name": "Acura NSX GT3 EVO 22",
+        "FilePath": "acuransxevo22gt3",
+        "FileID": "1kM2Dinig-eu-rFMnKKGT72rGjm0GjoZM",
+        "BodyType": {}
+    },
+    "ARCA Chevy SS": {
+        "Name": "ARCA Chevrolet SS",
+        "FilePath": "stockcars2 arcachevy25",
+        "FileID": "1SO3pgz5oxnpW9L1a2f35EIBmMgDbgEuG",
+        "BodyType": {}
+    },
+    "ARCA Ford Mustang": {
+        "Name": "ARCA Ford Mustang",
+        "FilePath": "stockcars2 arcaford25",
+        "FileID": "1UMpm5g-wK7Jxu0ghSTXuRrCwTMN1xQ7k",
+        "BodyType": {}
+    },
+    "ARCA Toyota Camry": {
+        "Name": "ARCA Toyota Camry",
+        "FilePath": "stockcars2 arcatoyota25",
+        "FileID": "1u3yF1dI2xMh-CRy5FLHWzvmyOqmh6eMM",
+        "BodyType": {}
+    },
+    "Aston Martin DBR9 GT1": {
+        "Name": "Aston Martin DBR9 GT1",
+        "FilePath": "astonmartin dbr9",
+        "FileID": "1VVFHU6_wy9JGXxZll_Ms6ueY_4zHf7Hq",
+        "BodyType": {}
+    },
+    "Aston Martin Vantage GT4": {
+        "Name": "Aston Martin Vantage GT4",
+        "FilePath": "amvantagegt4",
+        "FileID": "1yVTtiwzjeBcNeSkksn7pp5D2JBUF_8Sd",
+        "BodyType": {}
+    },
+    "Audi 90 GTO": {
+        "Name": "Audi 90 GTO",
+        "FilePath": "audi90gto",
+        "FileID": "1BnCjIVu35RAS49f3MJYwlAixISrkV0zT",
+        "BodyType": {}
+    },
+    "Audi R8 LMS EVO II GT3": {
+        "Name": "Audi R8 LMS EVO II GT3",
+        "FilePath": "audir8lmsevo2gt3",
+        "FileID": "1QmKyxbOBm86FN4g3fey4E_0pgtRp-1uK",
+        "BodyType": {}
+    },
+    "Audi R8 LMS GT3": {
+        "Name": "Audi R8 LMS GT3",
+        "FilePath": "audir8gt3",
+        "FileID": "1cquAFCE9nsZFvJ-geAPq2f7FOwq663ze",
+        "BodyType": {}
+    },
+    "Audi R18": {
+        "Name": "Audi R18",
+        "FilePath": "audir18",
+        "FileID": "1CnI6up3sIrrB0ZX_4RukfIHAM3lpebVl",
+        "BodyType": {}
+    },
+    "Audi RS3 LMS": {
+        "Name": "Audi RS3 LMS TCR",
+        "FilePath": "audirs3lms",
+        "FileID": "13WK5LoAhT1BqjnjTmE_y1tCWTW8S8cp2",
+        "BodyType": {}
+    },
+    "BMW M Hybrid V8": {
+        "Name": "BMW M Hybrid V8",
+        "FilePath": "bmwlmdh",
+        "FileID": "1J03plVQMOePghMU4whiJGKSpXLytOtiF",
+        "BodyType": {}
+    },
+    "BMW M2 CS Racing": {
+        "Name": "BMW M2 CS Racing",
+        "FilePath": "bmwm2csr",
+        "FileID": "1ylodOSB2qMa3q-jVlLs-lf4kYTLQQsBC",
+        "BodyType": {}
+    },
+    "BMW M4 EVO GT4": {
+        "Name": "BMW M4 G82 GT4",
+        "FilePath": "bmwm4evogt4",
+        "FileID": "1dJ_DTfX2HT6Fo6z-07_GhMUbKHUzos4d",
+        "BodyType": {}
+    },
+    "BMW M4 GT3": {
+        "Name": "BMW M4 GT3",
+        "FilePath": "bmwm4gt3",
+        "FileID": "1odnlJ6tU4r_kRV_UkvTt3XuXR7uM-9aP",
+        "BodyType": {}
+    },
+    "BMW M4 GT4": {
+        "Name": "BMW M4 F82 GT4 - 2018",
+        "FilePath": "bmwm4gt4",
+        "FileID": "1L9phIlsTFP2CXVCjQ9PenUl89J9UW5Q_",
+        "BodyType": {}
+    },
+    "BMW M8 GTE": {
+        "Name": "BMW M8 GTE",
+        "FilePath": "bmwm8gte",
+        "FileID": "1R6WuIbAw7ghgVdg3lZk_DxQFYpzTUtHX",
+        "BodyType": {}
+    },
+    "BMW Z4 GT3": {
+        "Name": "BMW Z4 GT3",
+        "FilePath": "bmwz4gt3",
+        "FileID": "1NK_X1G0NS_67p1YBg5vfJtFEHWIQ0Kup",
+        "BodyType": {}
+    },
+    "Buick Lesabre 1987": {
+        "Name": "NASCAR Legends Buick LeSabre - 1987",
+        "FilePath": "stockcars buicklesabre87",
+        "FileID": "1CwoW4gYRmGvgCsqR8bGZc2zbowESWfCB",
+        "BodyType": {}
+    },
+    "Cadillac CTS-VR": {
+        "Name": "Cadillac CTS-V Racecar",
+        "FilePath": "cadillacctsvr",
+        "FileID": "1G7hgzr0ut5LQL1fJVhDKNBXbH0da-Dj0",
+        "BodyType": {}
+    },
+    "Cadillac VSeriesR GTP": {
+        "Name": "Cadillac V-Series.R GTP",
+        "FilePath": "cadillacvseriesrgtp",
+        "FileID": "1s0KhQT8yA3y6Fc5LvhOy9MZtgLpi0Y_M",
+        "BodyType": {}
+    },
+    "Chevrolet Camaro Class B": {
+        "Name": "NASCAR Xfinity Chevrolet Camaro - 2014",
+        "FilePath": "stockcars2 nwcamaro2014",
+        "FileID": "1IrSE0pxrx8W6EYdwEW5QL5rlOvve_dho",
+        "BodyType": {}
+    },
+    "Chevrolet Camaro Class B 2019": {
+        "Name": "NASCAR Xfinity Chevrolet Camaro",
+        "FilePath": "stockcars2 camaro2019",
+        "FileID": "11_ROxaG-j3lT36JwYhrnvGVOq3rvbvk6",
+        "BodyType": {}
+    },
+    "Chevrolet Camaro ZL1 Gen 6": {
+        "Name": "NASCAR Cup Series Chevrolet Camaro ZL1",
+        "FilePath": "stockcars camarozl12018",
+        "FileID": "15bcgGXA11pxn7UcYzP_lZSLBs7CABvDj",
+        "BodyType": {}
+    },
+    "Chevrolet Camaro ZL1 Nextgen": {
+        "Name": "NASCAR Cup Series Next Gen Chevrolet Camaro ZL1",
+        "FilePath": "stockcars chevycamarozl12022",
+        "FileID": "1JcmC7ako4azyGzRvPiBfdks9rhXnBkgl",
+        "BodyType": {}
+    },
+    "Chevrolet Corvette C7 Daytona Prototype": {
+        "Name": "Chevrolet Corvette C7 Daytona Prototype",
+        "FilePath": "c7vettedp",
+        "FileID": "11xPPr_hZKuy3wAaBFF1VcTQM2A8Gjt5b",
+        "BodyType": {}
+    },
+    "Chevrolet Corvette C8R GTE": {
+        "Name": "Chevrolet Corvette C8.R GTE",
+        "FilePath": "c8rvettegte",
+        "FileID": "1WzKOy-15fz6q1dHU-NEauNTUNW-v8dJv",
+        "BodyType": {}
+    },
+    "Chevrolet Corvette Z06 GT3r": {
+        "Name": "Chevrolet Corvette Z06 GT3.R",
+        "FilePath": "chevyvettez06rgt3",
+        "FileID": "16_hSDCpERRrNCIiwDJQXMTXt9_wVf5Ut",
+        "BodyType": {}
+    },
+    "Chevrolet Impala Class A": {
+        "Name": "NASCAR Cup Chevrolet Impala COT - 2009",
+        "FilePath": "stockcars impala",
+        "FileID": "132tFmhKv1BgIOM7X3JT6_ZqMQNlNfF8C",
+        "BodyType": {}
+    },
+    "Chevrolet Impala Class B 2011": {
+        "Name": "NASCAR Nationwide Chevrolet Impala - 2012",
+        "FilePath": "stockcars2 chevy cot",
+        "FileID": "1ZNm-KCZSj4OGyQeLCWBzlj4me2nAZUn_",
+        "BodyType": {}
+    },
+    "Chevrolet Impala SS Class B": {
+        "Name": "ARCA Menards Chevrolet Impala",
+        "FilePath": {
+            "ARCA": "stockcars2 chevy",
+            "Gen 4 Cup": "stockcars2 chevy gen4cup"
+        },
+        "FileID": "1EhJ3NgI4r_c8DJ1eEQdFHezesyg9I8qC",
+        "BodyType": {}
+    },
+    "Chevrolet Monte Carlo 1987": {
+        "Name": "NASCAR Legends Chevrolet Monte Carlo - 1987",
+        "FilePath": "stockcars chevymontecarlo87",
+        "FileID": "1AC6KQ8hfnc7rbZZl9L5DwFTc7dlYuqvC",
+        "BodyType": {}
+    },
+    "Chevrolet Monte Carlo Gen4": {
+        "Name": "Gen 4 Chevrolet Monte Carlo - 2003",
+        "FilePath": "stockcars chevymontecarlo03",
+        "FileID": "1XWYBaAIAbGBRicJKhGLZvijy4YevYm3L",
+        "BodyType": {
+            "Standard": "",
+            "Superspeedway": "_ss"
+        }
+    },
+    "Chevrolet Silverado Truck": {
+        "Name": "NASCAR Truck Chevrolet Silverado - 2008",
+        "FilePath": "trucks silverado",
+        "FileID": "15sdB4XqwXWZgWpfbteG3RFkjKJLcw62t",
+        "BodyType": {}
+    },
+    "Chevrolet Silverado Truck 2019": {
+        "Name": "NASCAR Truck Chevrolet Silverado",
+        "FilePath": "trucks silverado2019",
+        "FileID": "1BO7DkVEGY5XPlvlJqYEmKJY8HNNYxbFD",
+        "BodyType": {}
+    },
+    "Chevrolet SS": {
+        "Name": "NASCAR Cup Chevrolet SS - 2013",
+        "FilePath": "stockcars chevyss",
+        "FileID": "10X1it1rvnT4zYruc32uwM60DUPxz8XSS",
+        "BodyType": {}
+    },
+    "Corvette C6r": {
+        "Name": "Chevrolet Corvette C6.R GT1",
+        "FilePath": "c6r",
+        "FileID": "1HvGdKr9bCbZRhm2GwGFRMKZ6bHYjnoYq",
+        "BodyType": {}
+    },
+    "Dallara F312 F3": {
+        "Name": "Dallara F3",
+        "FilePath": "dallaraf3",
+        "FileID": "1eAO7G_a4IP_s9Gr7ogG5SZK4AW-2oBZ-",
+        "BodyType": {}
+    },
+    "Dallara IR01": {
+        "Name": "Dallara iR-01",
+        "FilePath": "dallarair01",
+        "FileID": "1gTki25TzMQWgQpFXaywlzWRFN8uk7pTi",
+        "BodyType": {}
+    },
+    "Dallara P217": {
+        "Name": "Dallara P217",
+        "FilePath": "dallarap217",
+        "FileID": "1hFE_dERBdN_Hi4rAkyuXiDjZNmtbbGcl",
+        "BodyType": {}
+    },
+    "Dirt Late Model": {
+        "Name": "Dirt Late Model",
+        "FilePath": {
+            "Limited Dirt Late Model": "dirtlatemodel 350",
+            "Pro Dirt Late Model": "dirtlatemodel 358",
+            "Super Dirt Late Model": "dirtlatemodel 438"
+        },
+        "FileID": "1MMNbI3EThm7r6WN3IWMLL5VUNPjQbm1v",
+        "BodyType": {}
+    },
+    "Dirt Micro Sprint": {
+        "Name": "Dirt Micro Sprint Car",
+        "FilePath": {
+            "Non-Winged": "dirtmicrosprint nonwinged",
+            "Non-Winged Outlaw": "dirtmicrosprint nonwinged outlaw",
+            "Winged": "dirtmicrosprint winged",
+            "Winged Outlaw": "dirtmicrosprint winged outlaw"
+        },
+        "FileID": "1OVtc6mbZh-W1xbYYTRKzuaOPgq3teBW9",
+        "BodyType": {}
+    },
+    "Dirt Midget": {
+        "Name": "Dirt Midget",
+        "FilePath": "dirtmidget",
+        "FileID": "1DZNyjSygzTV0p747ZxS1MawvZAwcw2_q",
+        "BodyType": {}
+    },
+    "Dirt Modified": {
+        "Name": "Dirt Modified",
+        "FilePath": {
+            "358": "dirtmodified 358",
+            "Big Block": "dirtmodified bigblock"
+        },
+        "FileID": "1270DB15VKgJitn2LQWp_7BQd2NZw1nic",
+        "BodyType": {}
+    },
+    "Dirt Sprint": {
+        "Name": "Dirt Sprint Car",
+        "FilePath": {
+            "Non-Winged 360": "dirtsprint nonwinged 360",
+            "Non-Winged 410": "dirtsprint nonwinged 410",
+            "Winged 305": "dirtsprint winged 305",
+            "Winged 360": "dirtsprint winged 360",
+            "Winged 410": "dirtsprint winged 410"
+        },
+        "FileID": "1TorZ5a6m7XxKiOEep3Rn94Ugfidrcd51",
+        "BodyType": {}
+    },
+    "Dirt Street Stock": {
+        "Name": "Dirt Street Stock",
+        "FilePath": "dirtstreetstock",
+        "FileID": "1rNvelodAaoxy5TqhP09KdQUsr2ZcJnV8",
+        "BodyType": {}
+    },
+    "Dirt UMP Modified": {
+        "Name": "Dirt UMP Modified",
+        "FilePath": "dirtumpmod",
+        "FileID": "1j054vkhYZELALtCn-5oglpWhsQy92Xpx",
+        "BodyType": {}
+    },
+    "Driver Suit": {
+        "Name": "Driver Suit",
+        "FilePath": "",
+        "FileID": "1qLm8bsVeTpg01aN-Witb903zgJm_S1QD",
+        "BodyType": {}
+    },
+    "Ferrari 296 Challenge": {
+        "Name": "Ferrari 296 Challenge",
+        "FilePath": "ferrari296challenge",
+        "FileID": "1LDym4MUlNGHjGbOgmMngjX23aAwmvUdi",
+        "BodyType": {}
+    },
+    "Ferrari 296 GT3": {
+        "Name": "Ferrari 296 GT3",
+        "FilePath": "ferrari296gt3",
+        "FileID": "1qP3W0Jqox7eIu_jFPi87S0I0kTYpQv4k",
+        "BodyType": {}
+    },
+    "Ferrari 488 GT3": {
+        "Name": "Ferrari 488 GT3",
+        "FilePath": "ferrari488gt3",
+        "FileID": "1zet7oxaii3I2NwRpD-UAzAlc3jWh2tFf",
+        "BodyType": {}
+    },
+    "Ferrari 488 GTE": {
+        "Name": "Ferrari 488 GTE",
+        "FilePath": "ferrari488gte",
+        "FileID": "1GT9w2Pd5QE5aR-WvygbrFHzvjql_uFdt",
+        "BodyType": {}
+    },
+    "Ferrari 499P": {
+        "Name": "Ferrari 499P",
+        "FilePath": "ferrari499p",
+        "FileID": "1krblVszbu3pcKc3zmGIHeubS6fBTfpYS",
+        "BodyType": {}
+    },
+    "Ferrari EVO GT3": {
+        "Name": "Ferrari 488 GT3 Evo 2020",
+        "FilePath": "ferrarievogt3",
+        "FileID": "1ZqaVTT0TI-OTBG8nLrg8QxFCewnNA3e8",
+        "BodyType": {}
+    },
+    "Ford F150": {
+        "Name": "NASCAR Truck Ford F150",
+        "FilePath": "trucks fordf150",
+        "FileID": "1gkRU0RQH_GUkIJ7JKd45hb3ezUUoK2Kt",
+        "BodyType": {}
+    },
+    "Ford Fiesta ST WRC": {
+        "Name": "Ford Fiesta RS WRC",
+        "FilePath": "fordfiestarswrc",
+        "FileID": "1Eu-VOagNI7UKLh-QYIREf-dYgUTLbO5m",
+        "BodyType": {}
+    },
+    "Ford Fusion Gen 6": {
+        "Name": "NASCAR Cup Ford Fusion - 2016",
+        "FilePath": "stockcars fordfusion",
+        "FileID": "1v_crlQr7w6S7vsY3AnlquHlhG6fBqsRF",
+        "BodyType": {}
+    },
+    "Ford GT": {
+        "Name": "Ford GT GT2",
+        "FilePath": "fordgt",
+        "FileID": "1EHzZZ0yMbpSPJ8CymfyLeurtU1h2_0QH",
+        "BodyType": {}
+    },
+    "Ford GT 2017": {
+        "Name": "Ford GTE",
+        "FilePath": "fordgt2017",
+        "FileID": "1h7PycdIk69rlsiPR0f6hkxQWeN0aG0gr",
+        "BodyType": {}
+    },
+    "Ford GT GT3": {
+        "Name": "Ford GT GT3",
+        "FilePath": "fordgt gt3",
+        "FileID": "12UX0kABPDsiAkY-4VY18401ZuCzYy1KH",
+        "BodyType": {}
+    },
+    "Ford Mustang Class B 2013": {
+        "Name": "NASCAR Xfinity Ford Mustang - 2016",
+        "FilePath": "stockcars2 nwford2013",
+        "FileID": "1HKgOH_OeQTnCvVMDTD9YBzBpmWwmNFd-",
+        "BodyType": {}
+    },
+    "Ford Mustang Class B 2019": {
+        "Name": "NASCAR Xfinity Ford Mustang",
+        "FilePath": "stockcars2 mustang2019",
+        "FileID": "1A3OWfvbUMEnZZ7d65rEZ-zm-S4SLR-1T",
+        "BodyType": {}
+    },
+    "Ford Mustang Gen 6": {
+        "Name": "NASCAR Cup Series Ford Mustang",
+        "FilePath": "stockcars fordmustang2019",
+        "FileID": "1zm3BFeQyGvCU0p-Vi__nWiEf4SY0vUGM",
+        "BodyType": {}
+    },
+    "Ford Mustang GT3": {
+        "Name": "Ford Mustang GT3",
+        "FilePath": "fordmustanggt3",
+        "FileID": "1k-rQ94NOv3nnT21FM4In8vLNBLcqLfdI",
+        "BodyType": {}
+    },
+    "Ford Mustang Nextgen": {
+        "Name": "NASCAR Cup Series Next Gen Ford Mustang",
+        "FilePath": "stockcars fordmustang2022",
+        "FileID": "1LO45ZtR3TKhrqeYuBxTz9b_AtnryE-km",
+        "BodyType": {}
+    },
+    "Ford Taurus Gen4": {
+        "Name": "Gen 4 Ford Taurus - 2003",
+        "FilePath": "stockcars fordtaurus03",
+        "FileID": "1IKlm-QUB2O1omQ7keQbsCS8vWBn8fjp4",
+        "BodyType": {
+            "Standard": "",
+            "Superspeedway": "_ss"
+        }
+    },
+    "Ford Thunderbird 1987": {
+        "Name": "NASCAR Legends Ford Thunderbird - 1987",
+        "FilePath": "stockcars fordthunderbird87",
+        "FileID": "1RKrGgqaKGtRGDtt-FO0FYbeGesO9cvVQ",
+        "BodyType": {}
+    },
+    "Ford V8": {
+        "Name": "Supercars Ford Falcon - 2009",
+        "FilePath": "fordv8sc",
+        "FileID": "1FotEY3lfRcC4BbCJo2CU3jd-hHKAVRFt",
+        "BodyType": {}
+    },
+    "Ford V8sc 2014": {
+        "Name": "Supercars Ford FG Falcon - 2014",
+        "FilePath": "v8supercars ford2014",
+        "FileID": "1OyCEY0wllu6aEUheqrin2VkqOwyrtkZs",
+        "BodyType": {}
+    },
+    "Formula IR04": {
+        "Name": "FIA F4",
+        "FilePath": "formulair04",
+        "FileID": "1gC8AXscS9MJPrldLlCDQApL9AYft5p2t",
+        "BodyType": {}
+    },
+    "Formula Mazda": {
+        "Name": "Pro Mazda",
+        "FilePath": "formulamazda",
+        "FileID": "115kAVwOH_njsg9OJFsAoNmm0LQESH7BB",
+        "BodyType": {}
+    },
+    "Formula Renault 2.0": {
+        "Name": "Formula Renault 2.0",
+        "FilePath": "formularenault20",
+        "FileID": "1wCdHHUaAGKqV0P05itIwCu0x-6vjdQBr",
+        "BodyType": {}
+    },
+    "Formula Renault 3_5": {
+        "Name": "Formula Renault 3.5",
+        "FilePath": "formularenault35",
+        "FileID": "1KYyjT67q1ds5H2tSiFW-BaBUM3yc0OWm",
+        "BodyType": {}
+    },
+    "Formula Skip Barber 2000": {
+        "Name": "Skip Barber Formula 2000",
+        "FilePath": "rt2000",
+        "FileID": "1RVFL5BL3p35om4tKX9eP0CrzZD-S0UWQ",
+        "BodyType": {}
+    },
+    "Formula Vee": {
+        "Name": "Formula Vee",
+        "FilePath": "formulavee",
+        "FileID": "1mL0HqmM8lmoMhDwB9XNq7cJ5j9h3rnx2",
+        "BodyType": {}
+    },
+    "FR500S Mustang": {
+        "Name": "Ford Mustang FR500S",
+        "FilePath": "fr500s",
+        "FileID": "1T59zkgHJrxGYdpDJ6Ip0iwMOI9n5yPiX",
+        "BodyType": {}
+    },
+    "Helmet": {
+        "Name": "Driver Helmet",
+        "FilePath": "",
+        "FileID": "1anFVyNdE0BCeUyJPdxhO688cP0LFGu2F",
+        "BodyType": {}
+    },
+    "Holden Commodore VF V8": {
+        "Name": "Supercars Holden VF Commodore - 2014",
+        "FilePath": "v8supercars holden2014",
+        "FileID": "1huTIark8Q_KlZ_qNUxbNPEnbmS6TcnTf",
+        "BodyType": {}
+    },
+    "Honda Civic Type R": {
+        "Name": "Honda Civic Type R TCR",
+        "FilePath": "hondacivictyper",
+        "FileID": "1LEp4jBUwHmHftlMpp2bR2YlNa6T8uCV7",
+        "BodyType": {}
+    },
+    "Honda Performance Development ARX01C": {
+        "Name": "HPD ARX-01c",
+        "FilePath": "hpdarx01c",
+        "FileID": "1P2qpHrRSlWtCdxNns2gcm9ISuweFR47z",
+        "BodyType": {}
+    },
+    "Hyundai Elantra N TC": {
+        "Name": "Hyundai Elantra N TCR",
+        "FilePath": "hyundaielantracn7",
+        "FileID": "1-E3RBABTiM8sdQCtDqAfKuIAocnc-Rx7",
+        "BodyType": {}
+    },
+    "Hyundai Veloster N": {
+        "Name": "Hyundai Veloster N TCR",
+        "FilePath": "hyundaivelostern",
+        "FileID": "15s77XFKCBGFbBro6eBT-Y7uw7aSXqnRz",
+        "BodyType": {}
+    },
+    "Indy Pro PM18": {
+        "Name": "Indy Pro 2000 PM-18",
+        "FilePath": "indypropm18",
+        "FileID": "1X7GCbJ7Eng9tVHYscLcniYG13UZyt-4F",
+        "BodyType": {}
+    },
+    "Indycar Dallara DW12": {
+        "Name": "Dallara DW12",
+        "FilePath": "dallaradw12",
+        "FileID": "1vYmECs6kp1jhqJh-rB90aSyJ3KLpCPa6",
+        "BodyType": {}
+    },
+    "Indycar Dallara IR18": {
+        "Name": "Dallara IR18",
+        "FilePath": "dallarair18",
+        "FileID": "128VesUSidAMIT__GXXDzC6pwNcN9AZGz",
+        "BodyType": {}
+    },
+    "IRL Dallara": {
+        "Name": "Dallara IR-05",
+        "FilePath": "dallara",
+        "FileID": "14QHvGjZiSIQOrsqSTxWEjklJaChQN9ch",
+        "BodyType": {}
+    },
+    "Kia Optima": {
+        "Name": "Kia Optima",
+        "FilePath": "kiaoptima",
+        "FileID": "1tx1rBkUgTri9o1nR5eCSvwRdy4UbNhK9",
+        "BodyType": {}
+    },
+    "Lamborghini EVO GT3": {
+        "Name": "Lamborghini Hurac\u00e1n GT3 EVO",
+        "FilePath": "lamborghinievogt3",
+        "FileID": "1h5k-L7lNmQqhs8RfmXv9ATmaT7G9JH-i",
+        "BodyType": {}
+    },
+    "Late Model Stock": {
+        "Name": "Late Model Stock",
+        "FilePath": "latemodel2023",
+        "FileID": "1EOEfx2HacCQ2eYhg2iMgz0y-zqVysyDl",
+        "BodyType": {}
+    },
+    "Legends Ford34c": {
+        "Name": "Legends Ford '34 Coupe",
+        "FilePath": {
+            "Legends": "legends ford34c",
+            "Legends Rookie": "legends ford34c rookie"
+        },
+        "FileID": "1tZJf4nmTqAP7ZF5iBoQmv37ty_Ad5PFX",
+        "BodyType": {}
+    },
+    "Legends Ford34c Dirt": {
+        "Name": "Dirt Legends Ford '34 Coupe",
+        "FilePath": "legends dirtford34c",
+        "FileID": "1soivZ1Ue5-I7SGdfynQGMmZcjDBNiDcB",
+        "BodyType": {}
+    },
+    "Ligier JS P320": {
+        "Name": "Ligier JS P320",
+        "FilePath": "ligierjsp320",
+        "FileID": "17pTtWyALxS84SKCtQxrK-atl6Jnw72ON",
+        "BodyType": {}
+    },
+    "Lotus 49": {
+        "Name": "Lotus 49",
+        "FilePath": "lotus49",
+        "FileID": "1KtIpzLXCkC5Xz7bx14Jsm0uHHeXdGyTo",
+        "BodyType": {}
+    },
+    "Lotus 79": {
+        "Name": "Lotus 79",
+        "FilePath": "lotus79",
+        "FileID": "1iyvmlYsYE1huvrzWKDqQmtg9gVRC1EVS",
+        "BodyType": {}
+    },
+    "Mazda MX5": {
+        "Name": "Mazda MX-5",
+        "FilePath": {
+            "Cup": "mx5 cup",
+            "Roadster": "mx5 roadster"
+        },
+        "FileID": "1Xi_wndvueRpkyh0fWS88TQ4kzSI2y6dP",
+        "BodyType": {}
+    },
+    "Mazda MX5 2016": {
+        "Name": "Global Mazda MX-5 Cup",
+        "FilePath": "mx5 mx52016",
+        "FileID": "18uakJr-FiTvZ88zqpauiLbdze6C4a_CJ",
+        "BodyType": {}
+    },
+    "Mclaren 570s GT4": {
+        "Name": "McLaren 570S GT4",
+        "FilePath": "mclaren570sgt4",
+        "FileID": "1OTd4kZymwXBfCgz2kHQG8hMGMcYdIGlS",
+        "BodyType": {}
+    },
+    "McLaren 720s EVO GT3": {
+        "Name": "McLaren 720S GT3 EVO",
+        "FilePath": "mclaren720sgt3",
+        "FileID": "1U5J657MKznVfTksmrEvxyaKI99hbq5IV",
+        "BodyType": {}
+    },
+    "Mclaren MP4": {
+        "Name": "McLaren MP4-12C GT3",
+        "FilePath": "mclarenmp4",
+        "FileID": "1EJTA2S1s6vdguRlETH8u0pCX5bcpA5EO",
+        "BodyType": {}
+    },
+    "Mclaren MP4-30": {
+        "Name": "McLaren MP4-30",
+        "FilePath": "mclarenmp430",
+        "FileID": "1U85qBaJqTyBlRFgpMjDLZzGTn9w6zjKS",
+        "BodyType": {}
+    },
+    "Mercedes AMG GT3": {
+        "Name": "Mercedes-AMG GT3",
+        "FilePath": "mercedesamggt3",
+        "FileID": "1mN4MxKJSsWrzv2KLeTYcswixfQKPGVZe",
+        "BodyType": {}
+    },
+    "Mercedes AMG GT4": {
+        "Name": "Mercedes-AMG GT4",
+        "FilePath": "mercedesamggt4",
+        "FileID": "1TEg1qw8PK8ZO8wYo0KaU6Qf_zzeI3eMm",
+        "BodyType": {}
+    },
+    "Mercedes-AMG GT3 2020": {
+        "Name": "Mercedes-AMG GT3 2020",
+        "FilePath": "mercedesamgevogt3",
+        "FileID": "1xyZ5dQOJ6x5Sc0va50VS5d9Yr5d_7QR-",
+        "BodyType": {}
+    },
+    "Mini Stock": {
+        "Name": "Mini Stock",
+        "FilePath": {
+            "Asphalt": "ministock",
+            "Dirt": "dirtministock"
+        },
+        "FileID": "18eHzjiWF_6sxr0q81qz6I6_rdhOcDfnx",
+        "BodyType": {}
+    },
+    "Nissan GTP ZXT": {
+        "Name": "Nissan GTP ZXT",
+        "FilePath": "nissangtpzxt",
+        "FileID": "1B1z45ji_WuISaKJZyn3pGo2TLfydEBM0",
+        "BodyType": {}
+    },
+    "Pontiac Grand Prix 1987": {
+        "Name": "NASCAR Legends Pontiac Grand Prix - 1987",
+        "FilePath": "stockcars pontiacgrandprix87",
+        "FileID": "1lja9F6yi4ABHK9CMF7EWYkvdTrKQ6bAU",
+        "BodyType": {}
+    },
+    "Pontiac Solstice": {
+        "Name": "Pontiac Solstice",
+        "FilePath": {
+            "Solstice": "solstice",
+            "Solstice Rookie": "solstice rookie"
+        },
+        "FileID": "1wKE1eX3fSoY_bPqhwNzrrv9gas_41lI7",
+        "BodyType": {}
+    },
+    "Porsche 718 GT4": {
+        "Name": "Porsche 718 Cayman GT4 Clubsport MR",
+        "FilePath": "porsche718gt4",
+        "FileID": "1ZCbHh6fITatlIYnnBGbeoBeuQSFkifBf",
+        "BodyType": {}
+    },
+    "Porsche 911 Cup": {
+        "Name": "Porsche 911 GT3 Cup (991)",
+        "FilePath": "porsche911cup",
+        "FileID": "1R67HdQk68gHPrjz79Lfd5m9EPvMBdHbO",
+        "BodyType": {}
+    },
+    "Porsche 911 RSR": {
+        "Name": "Porsche 911 RSR",
+        "FilePath": "porsche991rsr",
+        "FileID": "1ghoOAGTfkav9Nb_vWJwpzdUPT8Fn-GAU",
+        "BodyType": {}
+    },
+    "Porsche 911R GT3": {
+        "Name": "Porsche 911 GT3 R",
+        "FilePath": "porsche911rgt3",
+        "FileID": "13Amp-WeYvncxsl4qYRG0ez1YeUll4y3L",
+        "BodyType": {}
+    },
+    "Porsche 919 Hybrid": {
+        "Name": "Porsche 919",
+        "FilePath": "porsche919",
+        "FileID": "1BAUOFp03WuWsMnbP_uzs-UBP-jcVhntG",
+        "BodyType": {}
+    },
+    "Porsche 963 GTP": {
+        "Name": "Porsche 963 GTP",
+        "FilePath": "porsche963gtp",
+        "FileID": "1Vf7ts2zd37zltb4JMTrygzHF9aSkthA0",
+        "BodyType": {}
+    },
+    "Porsche 992 Cup": {
+        "Name": "Porsche 911 GT3 Cup (992)",
+        "FilePath": "porsche992cup",
+        "FileID": "1Pq7kuDanLST6111CDHPaJComoOBdQo3B",
+        "BodyType": {}
+    },
+    "Porsche 992r GT3": {
+        "Name": "Porsche 911 GT3 R (992)",
+        "FilePath": "porsche992rgt3",
+        "FileID": "1WRXR5JgY2OTKTSx6JXIRqeXv5JsyUIdq",
+        "BodyType": {}
+    },
+    "Porsche Mission R": {
+        "Name": "Porsche Mission R",
+        "FilePath": "porschemissionr",
+        "FileID": "1Jv3yLERrLfLT-d5dqNcKB1YP5Hu0Dgs0",
+        "BodyType": {}
+    },
+    "Pro2 Stadium Truck": {
+        "Name": "Lucas Oil Off Road Pro 2 Truck",
+        "FilePath": {
+            "Pro 2": "protrucks pro2truck",
+            "Pro 2 Lite": "protrucks pro2lite"
+        },
+        "FileID": "1I6g5Ir4AQeTzZx-X2ytvSi_jn9EysIp2",
+        "BodyType": {}
+    },
+    "Pro4 Stadium Truck": {
+        "Name": "Lucas Oil Off Road Pro 4 Truck",
+        "FilePath": "protrucks pro4truck",
+        "FileID": "1LmHpR7H8Jje49gIHH8gkMuAWfh0mSnK5",
+        "BodyType": {}
+    },
+    "Radical SR8": {
+        "Name": "Radical SR8",
+        "FilePath": "radical sr8",
+        "FileID": "17Y1C5gnIvR7ao3neNm2lIr7nM9f8GCm8",
+        "BodyType": {}
+    },
+    "Radical SR10": {
+        "Name": "Radical SR10",
+        "FilePath": "radicalsr10",
+        "FileID": "131hmvvjpcHiPnOFQY7qsSAY4iKhkVHpL",
+        "BodyType": {}
+    },
+    "Ray FF1600": {
+        "Name": "Ray FF1600",
+        "FilePath": "raygr22",
+        "FileID": "1rma6t4GbRcHBuuxCQ7dDHpXIQo39BgEi",
+        "BodyType": {}
+    },
+    "Renault Clio": {
+        "Name": "Renault Clio",
+        "FilePath": "renaultcliocup",
+        "FileID": "1A5i03zCcZeOHfSx8d5KF-pfqAd_NDu4u",
+        "BodyType": {}
+    },
+    "Riley Daytona Prototype": {
+        "Name": "Riley MkXX Daytona Prototype - 2008",
+        "FilePath": "rileydp",
+        "FileID": "1k-vTZMnPUWVYbrHQ4Eavzh1IvIfbL77U",
+        "BodyType": {}
+    },
+    "Ruf RT12R": {
+        "Name": "Ruf RT 12R",
+        "FilePath": {
+            "AWD": "rufrt12r awd",
+            "RWD": "rufrt12r rwd",
+            "Track": "rufrt12r track",
+            "C-Spec": "rufrt12r track cspec"
+        },
+        "FileID": "1apTaHXdON0lfvLtRAkXs0N3DW4DhJENU",
+        "BodyType": {}
+    },
+    "Silvercrown": {
+        "Name": "Silver Crown",
+        "FilePath": "silvercrown",
+        "FileID": "1KQFFOgNQTEJ2LM1WGub8-nKNW3ezUPxR",
+        "BodyType": {}
+    },
+    "SK Modified": {
+        "Name": "Modified",
+        "FilePath": {
+            "SK": "skmodified",
+            "Tour": "skmodified tour"
+        },
+        "FileID": "1ZCxC4MZ1RkRL8Zv62FLBrxUd1l0CMRCx",
+        "BodyType": {}
+    },
+    "Spec Racer": {
+        "Name": "SCCA Spec Racer Ford",
+        "FilePath": "specracer",
+        "FileID": "1fix5m-fYseqglcqF8LL7YJ0WCQ6BShvl",
+        "BodyType": {}
+    },
+    "Sprint Car": {
+        "Name": "Sprint Car",
+        "FilePath": "sprint",
+        "FileID": "1qZ87ae8Hxe7jywfho3rtx5vS65NqqlEM",
+        "BodyType": {}
+    },
+    "SRX": {
+        "Name": "SRX",
+        "FilePath": "srx",
+        "FileID": "1-VS0f4pfROrCo2nA3U0GNCZlPE-TY8lx",
+        "BodyType": {}
+    },
+    "Stock Car Pro Chevy Cruze": {
+        "Name": "Stock Car Pro Series Chevrolet Cruze",
+        "FilePath": "stockcarbrasil cruze",
+        "FileID": "1tT9gnivyzfMZk-_o0UOGQLLrF3Ox-NbN",
+        "BodyType": {}
+    },
+    "Stock Car Pro Toyota Corolla": {
+        "Name": "Stock Car Pro Series Toyota Corolla",
+        "FilePath": "stockcarbrasil corolla",
+        "FileID": "15_YIblYKQcGueXf3Rhun-xng7LPva7RY",
+        "BodyType": {}
+    },
+    "Street Stock": {
+        "Name": "Street Stock",
+        "FilePath": "streetstock",
+        "FileID": "1m_tLcSpQSrVr9UQgWN7vqtmDVaYsTt-2",
+        "BodyType": {}
+    },
+    "Street Stock Casino": {
+        "Name": "Street Stock - Casino",
+        "FilePath": "streetstock streetstock2",
+        "FileID": "1OdOiqjGcT_Dsr8n7IKknq0FmebJN5YrV",
+        "BodyType": {}
+    },
+    "Street Stock Eagle": {
+        "Name": "Street Stock - Eagle",
+        "FilePath": "streetstock streetstock3",
+        "FileID": "10B5JVFaQbQ_XSFPDl5TydPHYa3Xl8Wi_",
+        "BodyType": {}
+    },
+    "Subaru WRX STI": {
+        "Name": "Subaru WRX STI",
+        "FilePath": "subaruwrxsti",
+        "FileID": "1mrjxjEVARTBSC3EqL848Xk0zzINMiRUr",
+        "BodyType": {}
+    },
+    "Super Formula Lights SF23": {
+        "Name": "Super Formula Lights",
+        "FilePath": "superformulalights324",
+        "FileID": "1oySXNfK_lrUFQx_s3uvHkddASR2U3Ihi",
+        "BodyType": {}
+    },
+    "Super Formula SF23 Toyota": {
+        "Name": "Super Formula SF23",
+        "FilePath": {
+            "Honda": "superformulasf23 honda",
+            "Toyota": "superformulasf23 toyota"
+        },
+        "FileID": "1yWHok5SD2xrLA3_PkmL9Rdlt0fq9r7n8",
+        "BodyType": {}
+    },
+    "Super Late Model": {
+        "Name": "Super Late Model",
+        "FilePath": "superlatemodel",
+        "FileID": "1PJPEBZqq-D2iD0eRrCYMTzymRKOPK149",
+        "BodyType": {}
+    },
+    "Supercars Chevy Camaro Gen 3": {
+        "Name": "Supercars Chevrolet Camaro Gen 3",
+        "FilePath": "supercars chevycamarogen3",
+        "FileID": "1I2PDWigCk-W9E-shwiOaN6DTynb-uKkb",
+        "BodyType": {}
+    },
+    "Supercars Ford Mustang Gen 3": {
+        "Name": "Supercars Ford Mustang Gen 3",
+        "FilePath": "supercars fordmustanggen3",
+        "FileID": "1KHDOy69eWVvGRk-vpcJJzpPIhn4pYp0N",
+        "BodyType": {}
+    },
+    "Supercars Ford Mustang GT": {
+        "Name": "Supercars Ford Mustang GT",
+        "FilePath": "v8supercars fordmustanggt",
+        "FileID": "1HpmYTVCoYxPPWRPXwBTvqXsnRbNvWyLV",
+        "BodyType": {}
+    },
+    "Supercars Holden ZB Commodore": {
+        "Name": "Supercars Holden ZB Commodore",
+        "FilePath": "v8supercars holden2019",
+        "FileID": "1l6eAGrwfmdXUgJDSkBS1Eqt5oAe98W9E",
+        "BodyType": {}
+    },
+    "Toyota Camry Class B": {
+        "Name": "NASCAR Xfinity Toyota Camry - 2015",
+        "FilePath": "stockcars2 camry2015",
+        "FileID": "1CkTJ9WMkQz6YCUHVD3CxM93AhiebsfdT",
+        "BodyType": {}
+    },
+    "Toyota Camry Gen 6": {
+        "Name": "NASCAR Cup Series Toyota Camry",
+        "FilePath": "stockcars toyotacamry",
+        "FileID": "1xyWdap7_cPJJN4No4cGm-4faC0Psso51",
+        "BodyType": {}
+    },
+    "Toyota Camry Nextgen": {
+        "Name": "NASCAR Cup Series Next Gen Toyota Camry",
+        "FilePath": "stockcars toyotacamry2022",
+        "FileID": "1TSkhJxEr8z1HvZ8DV79jVHcdbXrfzSxH",
+        "BodyType": {}
+    },
+    "Toyota GR86": {
+        "Name": "Toyota GR86",
+        "FilePath": "toyotagr86",
+        "FileID": "1jmMOvRTI7QPNKybqYLORb8RnxaS9SGpz",
+        "BodyType": {}
+    },
+    "Toyota Supra Class B": {
+        "Name": "NASCAR Xfinity Toyota Supra",
+        "FilePath": "stockcars2 supra2019",
+        "FileID": "1JCw6DAlFr9fQZTyPeybOe8lcotXiF9op",
+        "BodyType": {}
+    },
+    "Toyota Tundra Truck 2022": {
+        "Name": "NASCAR Truck Toyota Tundra TRD Pro",
+        "FilePath": "trucks toyotatundra2022",
+        "FileID": "13Cb-zhgYnMQVY48DDPpiNpFYj0KFxr55",
+        "BodyType": {}
+    },
+    "USF 2000 USF17": {
+        "Name": "USF 2000",
+        "FilePath": "usf2000usf17",
+        "FileID": "12dSIk5lk4bKSjeH5FNpf5ZsKfEQ0vLX1",
+        "BodyType": {}
+    },
+    "VW Beetle GRC": {
+        "Name": "VW Beetle",
+        "FilePath": {
+            "Beetle": "vwbeetlegrc",
+            "Beetle Lite": "vwbeetlegrc lite"
+        },
+        "FileID": "1Y9nWkueqSS_6fuypiQoTj0xZeay178xU",
+        "BodyType": {}
+    },
+    "VW Jetta TDI": {
+        "Name": "VW Jetta TDI Cup",
+        "FilePath": "jettatdi",
+        "FileID": "1zRboIQzWVLhepuPzeogGBmqbwCIgM-ML",
+        "BodyType": {}
+    }
+}

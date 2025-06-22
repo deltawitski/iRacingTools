@@ -1,5 +1,6 @@
 import os
 import pathlib
+import configparser
 
 try:
     import requests
@@ -18,8 +19,28 @@ except ImportError:
     except subprocess.CalledProcessError:
         can_update = False
 
-cfg = None
+cfg = configparser.ConfigParser()
 cfg_file = None
+
+def get_cfg_file() -> str:
+    global cfg_file
+    plugin_dir = find_substance_plugin_dir()
+    if plugin_dir:
+        resources_dir = os.path.join(plugin_dir, "iRacingToolsResources")
+        test_path = os.path.join(resources_dir, "cfg")
+        if os.path.exists(test_path):
+            cfg_file = test_path
+            return cfg_file
+        else:
+            with open(test_path, 'w') as f:
+                pass
+            if os.path.exists(test_path):
+                cfg_file = test_path
+                return cfg_file
+            else:
+                return None
+    else:
+        return None
 
 def download_templates(templates: list[str]):
     templates_dir = read_cfg("Settings", "templates_dir")
@@ -34,7 +55,7 @@ def get_github_data() -> dict:
     response = requests.get(repo_url)
     
     file_paths = {}
-    exclude_files = ["installer.py", ".gitattributes", "README.md"]
+    exclude_files = ["installer.py", ".gitattributes", "README.md", "iRacingToolsResources/cfg"]
     
     if response.status_code == 200:
         repo_data = response.json()
@@ -134,21 +155,31 @@ def is_plugin_installed() -> bool:
 
 def find_substance_plugin_dir():
     user_dir = pathlib.Path.home()
-    plugin_dir = os.path.join(user_dir, "Documents/Adobe/Adobe Substance 3D Painter/python/plugins")
+    plugin_dir = os.path.normpath(os.path.join(user_dir, "Documents/Adobe/Adobe Substance 3D Painter/python/plugins"))
     if os.path.exists(plugin_dir): return plugin_dir
     else: return None
 
 def read_cfg(section, option):
+    global cfg_file
     value = None
-    cfg.read(cfg_file)
-    if cfg.has_section(section):
-        if cfg.has_option(section, option):
-            value = cfg.get(section, option)
+    if cfg_file is None:
+        get_cfg_file()
+    if os.path.exists(cfg_file):
+        cfg.read(cfg_file)
+        if cfg.has_section(section):
+            if cfg.has_option(section, option):
+                value = cfg.get(section, option)
     return value
 
 def write_cfg(section, option, value):
-    if not cfg.has_section(section):
-        cfg.add_section(section)
-    cfg.set(section, option, value)
-    with open(cfg_file, 'w') as configfile:
-        cfg.write(configfile)
+    global cfg_file
+    if cfg_file is None:
+        get_cfg_file()
+    if os.path.exists(cfg_file):
+        cfg.read(cfg_file)
+        if not cfg.has_section(section):
+            cfg.add_section(section)
+        cfg.set(section, option, value)
+        with open(cfg_file, 'w') as configfile:
+            cfg.write(configfile)
+        
