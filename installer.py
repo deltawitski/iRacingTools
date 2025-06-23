@@ -32,6 +32,9 @@ palette.setColor(QPalette.ColorRole.Base, bg_light) #Alternating BG Colors
 palette.setColor(QPalette.ColorRole.AlternateBase, bg_shadow) #Alternating BG Colors
 palette.setColor(QPalette.ColorRole.Highlight, ir_blue)
 palette.setColor(QPalette.ColorRole.Text, text_color)
+palette.setColor(QPalette.ColorRole.WindowText, text_color)
+palette.setColor(QPalette.ColorRole.PlaceholderText, text_color)
+palette.setColor(QPalette.ColorRole.ButtonText, text_color)
 
 app.setPalette(palette)
 
