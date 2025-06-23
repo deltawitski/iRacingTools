@@ -23,6 +23,7 @@ bg_light    = QColor(51, 51, 51)
 ir_red      = QColor(212, 43, 39)
 ir_blue     = QColor(34, 68, 136)
 bg_shadow   = QColor(38, 38, 38)
+text_color  = QColor(255, 255, 255)
 
 palette = QPalette()
 palette.setColor(QPalette.Window, bg_light) #Window Background
@@ -30,6 +31,7 @@ palette.setColor(QPalette.Base, bg_dark) #Title Bar
 palette.setColor(QPalette.ColorRole.Base, bg_light) #Alternating BG Colors
 palette.setColor(QPalette.ColorRole.AlternateBase, bg_shadow) #Alternating BG Colors
 palette.setColor(QPalette.ColorRole.Highlight, ir_blue)
+palette.setColor(QPalette.ColorRole.Text, text_color)
 
 app.setPalette(palette)
 
@@ -424,7 +426,7 @@ class TemplatesWindow(QWidget):
             self.setText(self.data_dict["Name"])
             self.file_id = self.data_dict["FileID"]
             
-            self.setFlags(self.flags() | Qt.ItemFlag.ItemIsUserCheckable)
+            self.setFlags(self.flags() & ~Qt.ItemFlag.ItemIsUserCheckable)
             self.setCheckState(Qt.CheckState.Unchecked)
     
     def __init__(self, parent=None):
@@ -554,8 +556,8 @@ class TemplatesWindow(QWidget):
         
         self.label1.setText("")
         self.label2.setText("")
-        self.current_progress_bar.setValue(-1)
-        self.total_progress_bar.setValue(-1)
+        self.current_progress_bar.reset()
+        self.total_progress_bar.reset()
         
         new_data = _internal_utils.get_data()
         if self.data_dict != new_data:
