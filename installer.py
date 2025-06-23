@@ -4,12 +4,15 @@ import threading
 
 from iRacingToolsResources import _internal_utils
 
-from PySide6.QtCore import Qt, QSize, Signal
-from PySide6.QtGui import QPalette, QColor, QIcon, QShowEvent, QFont
+from iRacingToolsResources._internal_utils import images
+
+from PySide6.QtCore import Qt, QSize, Signal, QRect
+from PySide6.QtGui import QPalette, QColor, QIcon, QShowEvent, QFont, QPainter, QBrush
 from PySide6.QtWidgets import ( 
     QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, 
     QWidget, QStackedWidget, QPushButton, QProgressBar, 
-    QLabel, QLineEdit, QFileDialog, QToolButton, QMessageBox
+    QLabel, QLineEdit, QFileDialog, QToolButton, QMessageBox, 
+    QFrame, QSizePolicy, QListWidget, QListWidgetItem
 )
 
 app = QApplication(sys.argv)
@@ -24,6 +27,10 @@ bg_shadow   = QColor(38, 38, 38)
 palette = QPalette()
 palette.setColor(QPalette.Window, bg_light) #Window Background
 palette.setColor(QPalette.Base, bg_dark) #Title Bar
+palette.setColor(QPalette.ColorRole.Base, bg_light) #Alternating BG Colors
+palette.setColor(QPalette.ColorRole.AlternateBase, bg_shadow) #Alternating BG Colors
+palette.setColor(QPalette.ColorRole.Highlight, ir_blue)
+
 app.setPalette(palette)
 
 base_dir = os.path.dirname(__file__)
@@ -54,7 +61,7 @@ def GetTemplateDir() -> str:
 def Download(parent, Path=None):
     if _internal_utils.download_plugin(Path) == True:
         parent.Downloaded()
-
+        
 class TextEntry(QLineEdit):
     def __init__(self, Parent, Width, FontSize):
         super().__init__()
@@ -107,7 +114,7 @@ class ProgressBar(QProgressBar):
         self.setFixedWidth(500)
         self.max = self.maximum()
         self.setStyleSheet(f"""
-            QProgressBar {{
+        QProgressBar {{
             border: 1px solid {bg_light.name()};
             text-align: center;
             background-color: {bg_shadow.name()};
@@ -157,7 +164,7 @@ class InstallWindow(QWidget):
         
         self.progress_bar = ProgressBar()
         
-        self.layout.addStretch()
+        self.layout.addSpacing(5)
         self.layout.addWidget(self.title, alignment=Qt.AlignmentFlag.AlignHCenter)
         self.layout.addStretch()
         self.layout.addWidget(self.label1, alignment=Qt.AlignmentFlag.AlignHCenter)
@@ -230,7 +237,7 @@ class UpdateWindow(QWidget):
         
         self.progress_bar = ProgressBar()
         
-        self.layout.addStretch()
+        self.layout.addSpacing(5)
         self.layout.addWidget(self.title, alignment=Qt.AlignmentFlag.AlignHCenter)
         self.layout.addStretch()
         self.layout.addWidget(self.label1, alignment=Qt.AlignmentFlag.AlignHCenter)
@@ -291,7 +298,7 @@ class SettingsWindow(QWidget):
         self.parent: MainWindow = parent
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
-    
+        
         self.title = QLabel()
         self.title.setText("Plugin Settings")
         title_font = QFont("Verdana", 24, QFont.Weight.Bold)
@@ -315,32 +322,42 @@ class SettingsWindow(QWidget):
         
         self.label2 = QLabel()
         self.label2.setText("Paints Directory")
-        label2_font = QFont("Verdana", 14)
+        label2_font = QFont("Verdana", 10)
         self.label2.setFont(label2_font)
         self.paints_entry = DirSelect(self, 500)
         self.paints_entry.dir_selected_signal.connect(self.paints_dir_set)
         
         self.label3 = QLabel()
         self.label3.setText("Templates Directory")
-        label3_font = QFont("Verdana", 14)
+        label3_font = QFont("Verdana", 10)
         self.label3.setFont(label3_font)
         self.templates_entry = DirSelect(self, 500)
         self.templates_entry.dir_selected_signal.connect(self.templates_dir_set)
         
-        self.layout.addStretch()
+        self.layout.addSpacing(5)
+        
         self.layout.addWidget(self.title, alignment=Qt.AlignmentFlag.AlignHCenter)
+        
         self.layout.addStretch()
+        
         self.layout.addWidget(self.label1, alignment=Qt.AlignmentFlag.AlignHCenter)
         self.layout.addWidget(self.id_sel, alignment=Qt.AlignmentFlag.AlignHCenter)
+        
         self.layout.addStretch()
+        
         self.layout.addWidget(self.blabel, alignment=Qt.AlignmentFlag.AlignHCenter)
         self.layout.addWidget(self.button, alignment=Qt.AlignmentFlag.AlignHCenter)
+        
         self.layout.addStretch()
+        
         self.layout.addWidget(self.label2, alignment=Qt.AlignmentFlag.AlignHCenter)
         self.layout.addWidget(self.paints_entry, alignment=Qt.AlignmentFlag.AlignHCenter)
+        
         self.layout.addStretch()
+        
         self.layout.addWidget(self.label3, alignment=Qt.AlignmentFlag.AlignHCenter)
         self.layout.addWidget(self.templates_entry, alignment=Qt.AlignmentFlag.AlignHCenter)
+        
         self.layout.addStretch()
     
     def id_set(self):
@@ -398,9 +415,23 @@ class SettingsWindow(QWidget):
         super().showEvent(event)
         
 class TemplatesWindow(QWidget):
+    
+    class PaintTemplate(QListWidgetItem):
+        def __init__(self, key: str, data: dict):
+            super().__init__()
+            self.key = key
+            self.data_dict = data
+            self.setText(self.data_dict["Name"])
+            self.file_id = self.data_dict["FileID"]
+            
+            self.setFlags(self.flags() | Qt.ItemFlag.ItemIsUserCheckable)
+            self.setCheckState(Qt.CheckState.Unchecked)
+    
     def __init__(self, parent=None):
         super().__init__()
         self.parent: MainWindow = parent
+        self.data_dict = {}
+        self.downloader = None
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
     
@@ -409,17 +440,172 @@ class TemplatesWindow(QWidget):
         title_font = QFont("Verdana", 24, QFont.Weight.Bold)
         self.title.setFont(title_font)
         
-    def showEvent(self, event: QShowEvent):
+        self.button = QPushButton("Download")
+        self.button.setFixedWidth(125)
+        self.button.setFixedHeight(35)
+        self.button.clicked.connect(self.StartDownload)
+        
+        self.selects = QWidget()
+        self.selects_layout = QHBoxLayout()
+        self.selects.setLayout(self.selects_layout)
+        self.select_all = QPushButton("Select All")
+        self.select_all.setFixedSize(75, 25)
+        self.select_all.clicked.connect(lambda: self.SelectAll(True))
+        self.deselect_all = QPushButton("Deselect All")
+        self.deselect_all.setFixedSize(75, 25)
+        self.deselect_all.clicked.connect(lambda: self.SelectAll(False))
+        self.selects_layout.addWidget(self.select_all, alignment=Qt.AlignmentFlag.AlignTop)
+        self.selects_layout.addWidget(self.deselect_all, alignment=Qt.AlignmentFlag.AlignTop)
+        self.selects_layout.addSpacing(100)
+        self.selects_layout.addWidget(self.button)
+        
+        self.template_list = QListWidget()
+        self.template_list.itemClicked.connect(self.itemClicked)
+        self.template_list.setFixedHeight(150)
+        self.template_list.setFixedWidth(350)
+        self.template_list.setAlternatingRowColors(True)
+        '''self.template_list.setStyleSheet(f"""
+            QListWidget {{
+                border: 3px solid {bg_light.name()};
+            }}
+            QListWidget::item {{ 
+                background-color: {bg_light.name()};
+            }}
+            QListWidget::item:alternate {{ 
+                background-color: {bg_shadow.name()};
+            }}
+        """)'''
+        
+        self.label1 = QLabel()
+        self.label1.setText("")
+        label1_font = QFont("Verdana", 8, True)
+        self.label1.setFont(label1_font)
+        
+        self.current_progress_bar = ProgressBar()
+        
+        self.label2 = QLabel()
+        self.label2.setText("")
+        label2_font = QFont("Verdana", 8, True)
+        self.label2.setFont(label2_font)
+        
+        self.total_progress_bar = ProgressBar()
+        
+        self.layout.addSpacing(5)
+        self.layout.addWidget(self.title, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addStretch()
+        self.layout.addWidget(self.template_list, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addWidget(self.selects, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addStretch()
+        self.layout.addWidget(self.label1, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addWidget(self.current_progress_bar, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addWidget(self.label2, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addWidget(self.total_progress_bar, alignment=Qt.AlignmentFlag.AlignHCenter)
+        self.layout.addStretch()
+    
+    def SelectAll(self, bool):
+        for index in range(self.template_list.count()):
+            item = self.template_list.item(index)
+            if bool is True:
+                item.setCheckState(Qt.CheckState.Checked)
+                item.setBackground(ir_blue)
+            else:
+                item.setCheckState(Qt.CheckState.Unchecked)
+                item.setBackground(QBrush())
+        self.selectionChange()
+        
+    def itemClicked(self, item: PaintTemplate):
+        if item.checkState() == Qt.CheckState.Checked:
+            item.setCheckState(Qt.CheckState.Unchecked)
+            item.setBackground(QBrush())
+        else:
+            item.setCheckState(Qt.CheckState.Checked)
+            item.setBackground(ir_blue)
+        item.setSelected(False)
+        self.selectionChange()
+    
+    def selectionChange(self):
+        can_download = False
+        for index in range(self.template_list.count()):
+            item = self.template_list.item(index)
+            if item.checkState() == Qt.CheckState.Checked:
+                can_download = True
+                break
+        self.button.setEnabled(can_download)
+    
+    def PopulateList(self):
+        self.template_list.clear()
+        
+        data_key_list = list(self.data_dict.keys())
+        data_key_list = sorted(self.data_dict, key=lambda key: self.data_dict[key]["Name"], reverse=False)
+        
+        for key in data_key_list:
+            item = self.PaintTemplate(key, self.data_dict[key])
+            self.template_list.addItem(item)
+    
+    def Checks(self):
+        self.template_list.setEnabled(True)
         self.parent.cancel.setEnabled(True)
         self.parent.back.setEnabled(True)
         self.parent.next.setEnabled(False)
         self.parent.finish.setEnabled(True)
+        self.button.setEnabled(False)
+        self.select_all.setEnabled(True)
+        self.deselect_all.setEnabled(True)
         
-        self.layout.addStretch()
-        self.layout.addWidget(self.title, alignment=Qt.AlignmentFlag.AlignHCenter)
-        self.layout.addStretch()
+        self.label1.setText("")
+        self.label2.setText("")
+        self.current_progress_bar.setValue(-1)
+        self.total_progress_bar.setValue(-1)
+        
+        new_data = _internal_utils.get_data()
+        if self.data_dict != new_data:
+            self.data_dict = new_data
+            self.PopulateList()
+        
+        self.selectionChange()
+    
+    def showEvent(self, event: QShowEvent):
+        self.Checks()
 
         super().showEvent(event)
+        
+    def StartDownload(self):
+        templates = {}
+        for index in range(self.template_list.count()):
+            item = self.template_list.item(index)
+            if item.checkState() == Qt.CheckState.Checked:
+                name = item.key
+                file_id = item.file_id
+                if file_id:
+                    templates[name] = file_id
+                
+        if templates:
+            self.parent.back.setEnabled(False)
+            self.parent.finish.setEnabled(False)
+            self.button.setEnabled(False)
+            self.select_all.setEnabled(False)
+            self.deselect_all.setEnabled(False)
+            self.template_list.setEnabled(False)
+            
+            self.current_progress_bar.setLooping(True)
+            self.total_progress_bar.setLooping(True)
+            
+            self.downloader = _internal_utils.download_templates(templates)
+            self.downloader.download_prog.connect(self.DownloadProgress)
+            self.downloader.download_finished.connect(self.DownloadFinished)
+            
+    def DownloadProgress(self, Name: str, Current: float, Total: float):
+        self.current_progress_bar.setValue(int(Current * 100))
+        self.total_progress_bar.setValue(int(Total * 100))
+        self.label1.setText(Name)
+        self.label2.setText("Total")
+        self.current_progress_bar.setLooping(False)
+        self.total_progress_bar.setLooping(False)
+    
+    def DownloadFinished(self, Failed: list):
+        self.downloader = None
+        self.Checks()
+        print(Failed)
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -429,7 +615,7 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle("iRacing Tools Installer")
         self.setFixedSize(self.size)
-        self.setWindowIcon(icon_iracing_color)
+        self.setWindowIcon(QIcon(images))
         
         self.main_widget = QWidget()
         self.layout = QVBoxLayout()
@@ -506,9 +692,5 @@ class MainWindow(QMainWindow):
 
 window = MainWindow()
 window.show()
-
-#print(_internal_utils.is_plugin_installed())
-#print(_internal_utils.check_version())
-#print(_internal_utils.download_plugin())
 
 app.exec()

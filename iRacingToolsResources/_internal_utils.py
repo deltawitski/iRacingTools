@@ -1,6 +1,10 @@
 import os
 import pathlib
 import configparser
+import json
+import threading
+
+from PySide6.QtCore import Signal, QObject
 
 try:
     import requests
@@ -22,6 +26,20 @@ except ImportError:
 cfg = configparser.ConfigParser()
 cfg_file = None
 
+def get_data() -> dict:
+    output = {}
+    plugin_dir = find_substance_plugin_dir()
+    if plugin_dir:
+        resources_dir = os.path.join(plugin_dir, "iRacingToolsResources")
+        data_file = os.path.join(resources_dir, "data")
+        if os.path.exists(data_file):
+            with open(data_file) as file:
+                data_dict = json.load(file)
+            if data_dict:
+                output = data_dict
+        
+    return output
+
 def get_cfg_file() -> str:
     global cfg_file
     plugin_dir = find_substance_plugin_dir()
@@ -42,11 +60,62 @@ def get_cfg_file() -> str:
     else:
         return None
 
-def download_templates(templates: list[str]):
-    templates_dir = read_cfg("Settings", "templates_dir")
+class download_templates(QObject):
+    download_prog = Signal(str, float, float)
+    download_finished = Signal(list)
     
-    if templates_dir and templates:
-        pass
+    def __init__(self, templates: dict):
+        super().__init__()
+        self.templates_dir = read_cfg("Settings", "templates_dir")
+        self.templates = templates
+    
+        if self.templates_dir and self.templates:
+            self.download_thread = threading.Thread(target=self.Download)
+            self.download_thread.start()
+        
+        else:
+            if not self.templates_dir:
+                self.download_finished.emit(["Couldn't find templates directory."])
+            else:
+                self.download_finished.emit(["No templates to download."])
+            
+    def Download(self):
+        target = self.templates_dir
+        total_seg = 1 / len(self.templates)
+        failed = []
+        chunk_size = 8192
+        for index, (file_name, file_id) in enumerate(self.templates.items()):
+            total_start = index / len(self.templates)
+            curr_chunk = 0
+            
+            #try: docs.google.com/uc?export=download&id=FileID
+            base_url = "https://docs.google.com/uc"
+            session = requests.Session()
+            params = {
+                "export": "download",
+                "id": file_id
+            }
+            response = session.get(base_url, params=params, stream=True)
+            
+            os.makedirs(target, exist_ok=True)
+            file_path = os.path.join(target, f"{file_name}.spp")
+
+            try:
+                total_size = int(response.headers.get('content-length', 0))
+                with open(file_path, "wb") as file:
+                    for chunk in response.iter_content(chunk_size=chunk_size):
+                        if chunk:
+                            file.write(chunk)
+                            curr_chunk += len(chunk)
+                            curr_prog = curr_chunk / total_size
+                            total_prog = total_start + (total_seg * curr_prog)
+                            self.download_prog.emit(file_name, curr_prog, total_prog)
+
+            except Exception as exception:
+                os.remove(file_path)
+                failed.append(f"{file_name} failed to download with exception: {exception}")
+                
+        self.download_finished.emit(failed)
 
 def get_github_data() -> dict:
     repo_owner = "deltawitski"
@@ -55,7 +124,7 @@ def get_github_data() -> dict:
     response = requests.get(repo_url)
     
     file_paths = {}
-    exclude_files = ["installer.py", ".gitattributes", "README.md", "iRacingToolsResources/cfg"]
+    exclude_files = ["installer.py", ".gitattributes", "README.md", "iRacingToolsResources/cfg", ".build.py"]
     
     if response.status_code == 200:
         repo_data = response.json()
@@ -183,3 +252,4 @@ def write_cfg(section, option, value):
         with open(cfg_file, 'w') as configfile:
             cfg.write(configfile)
         
+images = os.path.join(find_substance_plugin_dir(), "iRacingToolsResources/icons/logo.ico")
